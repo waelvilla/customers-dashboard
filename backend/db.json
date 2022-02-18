@@ -1,0 +1,23 @@
+{
+  "customers": [
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd3bd",
+      "email": "customer1@tamara.co",
+      "first_name": "Mona",
+      "last_name": "Lisa",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    }
+  ]
+}
