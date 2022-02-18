@@ -3,12 +3,13 @@ enum Gender {
   FEMALE
 }
 
-enum UserStatus {
+export enum UserStatus {
   ACTIVE,
   PENDING,
   INACTIVE
 }
 export interface Customer {
+  id: string;
   customer_id: string;
   email: string;
   first_name: string;

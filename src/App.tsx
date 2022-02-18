@@ -5,11 +5,9 @@ import RootNavigator from 'src/navigation';
 
 function App() {
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <RootNavigator />
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
   );
 }
 export default App;
