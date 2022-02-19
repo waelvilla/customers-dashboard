@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Customer } from 'src/models/customer.model';
+import { Customer, CustomerFromApi, transformApiCustomer } from 'src/models/customer.model';
 
 export const customersApi = createApi({
   reducerPath: 'customers',
@@ -8,7 +8,10 @@ export const customersApi = createApi({
   }),
   endpoints: (builder) => ({
     customers: builder.query<Customer[], void>({
-      query: () => '/customers'
+      query: () => '/customers',
+      transformResponse: (response: CustomerFromApi[]) => {
+        return response.map((customer) => transformApiCustomer(customer));
+      }
     })
   })
 });

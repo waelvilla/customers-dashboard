@@ -1,34 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useCustomersQuery } from 'src/services/api';
-import { Button, Typography } from '@mui/material';
-import Navbar from 'src/components/Navbar';
-import { Box } from '@mui/system';
+import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DataTable from 'src/components/DataTable';
 import { UserStatus } from 'src/models/customer.model';
+import { HeaderContainer } from './styles';
 
 type DisplayUser = {
   id: string;
   name: string;
   status: UserStatus;
-}
+};
 const CustomersScreen: React.FC = () => {
-  const { data, error, isLoading, isFetching, isSuccess } = useCustomersQuery();
+  const { data, error, isLoading, isFetching, refetch } = useCustomersQuery();
   const [displayData, setDisplayData] = useState<DisplayUser[]>([]);
 
   useEffect(() => {
     if (data?.length) {
       const displayableData = data.map((customer) => ({
-        id: customer.customer_id.substr(0, 5),
-        name: `${customer.first_name} ${customer.last_name}`,
+        id: customer.id,
+        name: `${customer.firstName} ${customer.lastName}`,
+        'phone number': customer.phoneNumber,
+        email: customer.email,
+        'country code': customer.countryCode,
         status: customer.status
       }));
-      setDisplayData(displayableData)
+      setDisplayData(displayableData);
     }
   }, [data]);
+
+  const renderData = () => {
+    if (!displayData?.length) {
+      return null;
+    }
+    return <DataTable rows={displayData} />;
+  };
+
+  const renderHeader = () => {
+    return (
+      <HeaderContainer>
+        <Typography variant="h4">Customers</Typography>
+        <IconButton onClick={refetch} disabled={isFetching} aria-label="reload">
+          <AutorenewIcon />
+        </IconButton>
+        {error && (
+          <Alert severity="error" color="error">
+            An error occured while fetching the data, please try again or check your connection
+          </Alert>
+        )}
+      </HeaderContainer>
+    );
+  };
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+
   return (
     <Box>
-      <Typography variant="h4">Customers</Typography>
-      {data && <DataTable rows={displayData} />}
+      {renderHeader()}
+      {renderData()}
     </Box>
   );
 };
