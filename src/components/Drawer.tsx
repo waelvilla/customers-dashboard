@@ -71,7 +71,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft({ Component }: { Component: React.FC }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -94,9 +94,6 @@ export default function PersistentDrawerLeft({ Component }: { Component: React.F
             sx={{ mr: 2, ...(open && { display: 'none' }) }}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -108,13 +105,26 @@ export default function PersistentDrawerLeft({ Component }: { Component: React.F
             boxSizing: 'border-box'
           }
         }}
+        ModalProps={{
+          keepMounted: true
+        }}
         variant="persistent"
         anchor="left"
         open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+          <Box
+            width="100%"
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography variant="h6" component="div">
+              Dashboard
+            </Typography>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </Box>
         </DrawerHeader>
         <Divider />
         <List>

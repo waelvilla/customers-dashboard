@@ -24,7 +24,11 @@ module.exports = {
         ts: 'never',
         tsx: 'never'
       }
-    ]
+    ],
+    camelcase: 'off',
+    'no-use-before-define': 'off',
+    'react/function-component-definition': 'off',
+    '@typescript-eslint/no-use-before-define': ['error']
   },
   settings: {
     'import/resolver': {
