@@ -12,8 +12,14 @@ export const customersApi = createApi({
       transformResponse: (response: CustomerFromApi[]) => {
         return response.map((customer) => transformApiCustomer(customer));
       }
+    }),
+    customer: builder.query<Customer, string>({
+      query: (id: string) => `/customers?customer_id=${id}`,
+      transformResponse: (response: CustomerFromApi[]) => {
+        return transformApiCustomer(response[0]);
+      }
     })
   })
 });
 
-export const { useCustomersQuery } = customersApi;
+export const { useCustomersQuery, useCustomerQuery } = customersApi;

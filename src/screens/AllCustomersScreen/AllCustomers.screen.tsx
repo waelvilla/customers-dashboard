@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCustomersQuery } from 'src/services/api';
 import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
@@ -11,8 +12,9 @@ type DisplayUser = {
   name: string;
   status: UserStatus;
 };
-const CustomersScreen: React.FC = () => {
+const AllCustomersScreen: React.FC = () => {
   const { data, error, isLoading, isFetching, refetch } = useCustomersQuery();
+  const navigate = useNavigate();
   const [displayData, setDisplayData] = useState<DisplayUser[]>([]);
 
   useEffect(() => {
@@ -29,11 +31,15 @@ const CustomersScreen: React.FC = () => {
     }
   }, [data]);
 
+  const onClickCustomer = (customerId: string) => {
+    navigate(`/customers/${customerId}`);
+  };
+
   const renderData = () => {
     if (!displayData?.length) {
       return null;
     }
-    return <DataTable rows={displayData} />;
+    return <DataTable rows={displayData} onCellClick={onClickCustomer} />;
   };
 
   const renderHeader = () => {
@@ -64,4 +70,4 @@ const CustomersScreen: React.FC = () => {
   );
 };
 
-export default CustomersScreen;
+export default AllCustomersScreen;

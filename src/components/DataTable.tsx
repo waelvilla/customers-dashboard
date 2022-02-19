@@ -75,7 +75,13 @@ type DataRow = object & {
   [key: string]: any;
 };
 
-export default function DataTable({ rows }: { rows: DataRow[] }) {
+export default function DataTable({
+  rows,
+  onCellClick
+}: {
+  rows: DataRow[];
+  onCellClick: (id: string) => void;
+}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -112,7 +118,10 @@ export default function DataTable({ rows }: { rows: DataRow[] }) {
           ).map((row) => (
             <TableRow key={row.id}>
               {Object.keys(row).map((rowProp) => (
-                <TableCell style={{ width: 160 }} align="center">
+                <TableCell
+                  style={{ width: 160, cursor: 'pointer' }}
+                  align="center"
+                  onClick={() => onCellClick(row.id)}>
                   {row[rowProp]}
                 </TableCell>
               ))}
