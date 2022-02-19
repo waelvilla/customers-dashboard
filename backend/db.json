@@ -18,6 +18,139 @@
       "is_id_verified": true,
       "national_id": "123456789",
       "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd302",
+      "email": "a1@tamara.co",
+      "first_name": "A1",
+      "last_name": "AA1",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd3dfd",
+      "email": "A2@tamara.co",
+      "first_name": "A2",
+      "last_name": "A2",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd3dd",
+      "email": "A3@tamara.co",
+      "first_name": "A3",
+      "last_name": "A3",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd3gf",
+      "email": "A4@tamara.co",
+      "first_name": "A4",
+      "last_name": "A4",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd3ad",
+      "email": "A5@tamara.co",
+      "first_name": "A5",
+      "last_name": "A5",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbd3dd",
+      "email": "A6@tamara.co",
+      "first_name": "A6",
+      "last_name": "A6",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
+    },
+    {
+      "customer_id": "0003f016-ad7c-4c08-a8d2-397b7bcbdfds",
+      "email": "A7@tamara.co",
+      "first_name": "A7",
+      "last_name": "A7",
+      "phone_number": "966501234567",
+      "gender": "MALE",
+      "birth_date": "2002-03-29T00:00:00+00:00",
+      "country_code": "SA",
+      "address": {
+        "street": "3764 Al Urubah Rd",
+        "city": "Riyadh",
+        "postal_code": ""
+      },
+      "is_email_verified": false,
+      "is_id_verified": true,
+      "national_id": "123456789",
+      "status": "ACTIVE"
     }
   ]
 }
