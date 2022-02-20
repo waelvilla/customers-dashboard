@@ -3427,7 +3427,7 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-confusing-browser-globals@^1.0.10, confusing-browser-globals@^1.0.11:
+confusing-browser-globals@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/confusing-browser-globals/-/confusing-browser-globals-1.0.11.tgz#ae40e9b57cdd3915408a2805ebd3a5585608dc81"
   integrity sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==
@@ -4218,25 +4218,6 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-airbnb-base@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-15.0.0.tgz#6b09add90ac79c2f8d723a2580e07f3925afd236"
-  integrity sha512-xaX3z4ZZIcFLvh2oUNvcX5oEofXda7giYmuplVxoOg5A7EXJMrUyqRgR+mhDhPK8LZ4PttFOBvCYDbX3sUoUig==
-  dependencies:
-    confusing-browser-globals "^1.0.10"
-    object.assign "^4.1.2"
-    object.entries "^1.1.5"
-    semver "^6.3.0"
-
-eslint-config-airbnb@^19.0.4:
-  version "19.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-19.0.4.tgz#84d4c3490ad70a0ffa571138ebcdea6ab085fdc3"
-  integrity sha512-T75QYQVQX57jiNgpF9r1KegMICE94VYwoFQyMGhrvc+lB8YF2E/M/PYDaQe1AJcWaEgqLE+ErXV1Og/+6Vyzew==
-  dependencies:
-    eslint-config-airbnb-base "^15.0.0"
-    object.assign "^4.1.2"
-    object.entries "^1.1.5"
-
 eslint-config-prettier@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
@@ -4296,6 +4277,13 @@ eslint-plugin-flowtype@^8.0.3:
   dependencies:
     lodash "^4.17.21"
     string-natural-compare "^3.0.1"
+
+eslint-plugin-immer@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-immer/-/eslint-plugin-immer-0.0.1.tgz#169ede27c4d2ff81195ab093dcc0222b231cba38"
+  integrity sha512-Pb8D9lP4q1fhwefUSElwC1YHvJUWjcz+7saj7n/QPtpPOCwtsEyMK+ypFrLkq99BGGkjAWVJ4xOWEu82JSwKPA==
+  dependencies:
+    requireindex "~1.1.0"
 
 eslint-plugin-import@^2.25.3, eslint-plugin-import@^2.25.4:
   version "2.25.4"
@@ -7972,6 +7960,11 @@ require-from-string@^2.0.2:
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
 
+requireindex@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.1.0.tgz#e5404b81557ef75db6e49c5a72004893fe03e162"
+  integrity sha1-5UBLgVV+91225JxacgBIk/4D4WI=
+
 requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
@@ -8855,6 +8848,11 @@ tryer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==
+
+ts-enum-util@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ts-enum-util/-/ts-enum-util-4.0.2.tgz#2587a6fa8e8629f3715009e5090d52df9456f7e2"
+  integrity sha512-BB5qjvHYgYgOB/CaoA1Cy/B2QNnZ+nVBrJ15VV/AXGWx+AO83k5wgeLOJvkSLoKKavvH/M8Wj4ZbgROjsuYwzw==
 
 tsconfig-paths@^3.12.0, tsconfig-paths@^3.9.0:
   version "3.12.0"
