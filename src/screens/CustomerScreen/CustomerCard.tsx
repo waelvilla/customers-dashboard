@@ -7,10 +7,15 @@ import {
   Grid,
   FormControlLabel,
   Checkbox,
-  MenuItem
+  MenuItem,
+  Typography,
+  Box
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { $enum } from "ts-enum-util";
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDayjs from '@mui/lab/AdapterDayjs';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { $enum } from 'ts-enum-util';
 import { Customer, Gender, UserStatus } from 'src/models/customer.model';
 import { StyledRowBox } from 'src/utils/styles';
 
@@ -20,7 +25,12 @@ const STATUSES = $enum(UserStatus).getKeys();
 export default function CustomerCard({ customer }: { customer: Customer }) {
   const [localData, setLocalData] = useState<Customer>(customer);
   const onUpdate = (key: keyof Customer, newValue: any) => {
-    setLocalData({ ...localData, [key]: newValue });
+    if (key === 'address') {
+      const address = { ...localData.address, ...newValue };
+      setLocalData({ ...localData, address });
+    } else {
+      setLocalData({ ...localData, [key]: newValue });
+    }
   };
 
   return (
@@ -33,6 +43,11 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
         }}
       />
       <CardContent>
+        <Box marginBottom={1}>
+          <Typography component="h1" variant="h6">
+            Customer Information
+          </Typography>
+        </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <TextField
@@ -148,8 +163,76 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               ))}
             </TextField>
           </Grid>
+          <Grid item xs={12} md={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Date of Birth"
+                value={localData.birthDate}
+                onChange={(newValue) => {
+                  onUpdate('birthDate', newValue);
+                }}
+                renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
+              />
+            </LocalizationProvider>
+          </Grid>
+        </Grid>
+      </CardContent>
+      <CardContent>
+        <Box marginBottom={1}>
+          <Typography component="h1" variant="h6">
+            Address
+          </Typography>
+        </Box>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="Street"
+              label="Street"
+              fullWidth
+              autoComplete="countryCode"
+              variant="standard"
+              onChange={(event) => onUpdate('address', { street: event.target.value })}
+              value={localData.address.street}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="city"
+              label="City"
+              fullWidth
+              autoComplete="city"
+              variant="standard"
+              onChange={(event) => onUpdate('address', { city: event.target.value })}
+              value={localData.address.city}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="postalCode"
+              label="Postal Code"
+              fullWidth
+              autoComplete="postal-code"
+              variant="standard"
+              onChange={(event) => onUpdate('address', { postalCode: event.target.value })}
+              value={localData.address.postalCode}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="countryCode"
+              label="Country"
+              fullWidth
+              autoComplete="countryCode"
+              variant="standard"
+              onChange={(event) => onUpdate('countryCode', event.target.value)}
+              value={localData.countryCode}
+            />
+          </Grid>
         </Grid>
       </CardContent>
     </Card>
   );
 }
+/* WHATS LEFT:
+country code
+*/
