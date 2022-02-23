@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCustomersQuery } from 'src/services/customersApi';
+import { useCustomersQuery } from 'src/redux/api/customersApi';
 import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DataTable from 'src/components/DataTable';

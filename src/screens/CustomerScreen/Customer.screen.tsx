@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useCustomerQuery } from 'src/services/customersApi';
+import { useCustomerQuery } from 'src/redux/api/customersApi';
 import CustomerCard from './CustomerCard';
 
 const CustomerScreen: React.FC = () => {

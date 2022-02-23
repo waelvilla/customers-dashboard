@@ -11,7 +11,7 @@ import {
   Box
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useLazyLoginQuery } from 'src/services/authApi';
+import { useLazyLoginQuery } from 'src/redux/api/authApi';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginScreen() {
