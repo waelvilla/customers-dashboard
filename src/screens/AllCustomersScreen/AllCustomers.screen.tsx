@@ -12,14 +12,16 @@ type DisplayUser = {
   name: string;
   status: UserStatus;
 };
+const initialActivePage = 1;
 const AllCustomersScreen: React.FC = () => {
-  const { data, error, isLoading, isFetching, refetch } = useCustomersQuery();
+  const [activePage, setActivePage] = useState<number>(initialActivePage);
+  const { data, error, isLoading, isFetching, refetch } = useCustomersQuery(activePage);
   const navigate = useNavigate();
   const [displayData, setDisplayData] = useState<DisplayUser[]>([]);
 
   useEffect(() => {
-    if (data?.length) {
-      const displayableData = data.map((customer) => ({
+    if (data?.customers?.length) {
+      const displayableData = data?.customers.map((customer) => ({
         id: customer.id,
         name: `${customer.firstName} ${customer.lastName}`,
         'phone number': customer.phoneNumber,
@@ -31,15 +33,31 @@ const AllCustomersScreen: React.FC = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (activePage !== initialActivePage) {
+      refetch();
+    }
+  }, [activePage]);
+
   const onClickCustomer = (customerId: string) => {
     navigate(`/customers/${customerId}`);
   };
 
   const renderData = () => {
-    if (!displayData?.length) {
+    if (!data || !displayData?.length) {
       return null;
     }
-    return <DataTable rows={displayData} onCellClick={onClickCustomer} />;
+    const { page, totalPages } = data;
+
+    return (
+      <DataTable
+        setPage={(newPage) => setActivePage(newPage)}
+        count={totalPages}
+        page={page}
+        rows={displayData}
+        onCellClick={onClickCustomer}
+      />
+    );
   };
 
   const renderHeader = () => {

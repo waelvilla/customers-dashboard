@@ -28,6 +28,13 @@ export interface CustomerFromApi {
   national_id: string;
   status: UserStatus;
 }
+
+export interface FetchCustomersResponse {
+  count: number;
+  page: number;
+  totalPages: number;
+  customers: Customer[];
+}
 export interface Customer {
   id: string;
   email: string;

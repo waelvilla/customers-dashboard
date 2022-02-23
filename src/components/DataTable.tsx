@@ -77,26 +77,24 @@ type DataRow = object & {
 
 export default function DataTable({
   rows,
-  onCellClick
+  onCellClick,
+  setPage,
+  page,
+  count
 }: {
   rows: DataRow[];
   onCellClick: (id: string) => void;
+  setPage: (page: number) => void;
+  page: number;
+  count: number;
 }) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - count) : 0;
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(newPage + 1);
   };
 
   return (
@@ -112,13 +110,11 @@ export default function DataTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
+          {rows.map((row) => (
             <TableRow key={row.id}>
               {Object.keys(row).map((rowProp) => (
                 <TableCell
+                  key={row.id}
                   style={{ width: 160, cursor: 'pointer' }}
                   align="center"
                   onClick={() => onCellClick(row.id)}>
@@ -136,19 +132,12 @@ export default function DataTable({
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[rowsPerPage]}
               colSpan={3}
-              count={rows.length}
+              count={count}
               rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'rows per page'
-                },
-                native: true
-              }}
+              page={page - 1}
               onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
