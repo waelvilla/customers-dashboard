@@ -1,0 +1,16 @@
+{
+  "general": {
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "CustomerScreen": {
+      "CustomerInfo": "Customer Information",
+      "address": "Address",
+    "ErrorUpdatingVerifiedField": "Be careful! You're trying to modify a field that has been verified",
+    "errorEmailVerifiedBody": "You're trying to modify an email that the user has already verified, are you sure you want to update the user's email?",
+    "errorIdVerifiedBody": "You're trying to modify the national Id that the user has already verified, are you sure you want to update the user's nationalId?",
+    "confirmTitle": "Are you sure?",
+    "confirmBody": "Are you sure you want to save these changes?"
+  }
+}
