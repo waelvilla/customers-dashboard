@@ -9,32 +9,93 @@ import {
   Checkbox,
   MenuItem,
   Typography,
-  Box
+  Box,
+  Button
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DatePicker from '@mui/lab/DatePicker';
+import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDayjs from '@mui/lab/AdapterDayjs';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { $enum } from 'ts-enum-util';
 import { Customer, Gender, UserStatus } from 'src/models/customer.model';
-import { StyledRowBox } from 'src/utils/styles';
+import Modal from 'src/components/Modal';
+import locale from 'src/locale/en.json';
+const { CustomerScreen: text, general: generalText } = locale;
 
 const GENDERS = $enum(Gender).getKeys();
 const STATUSES = $enum(UserStatus).getKeys();
 
 export default function CustomerCard({ customer }: { customer: Customer }) {
+  const navigate = useNavigate();
   const [localData, setLocalData] = useState<Customer>(customer);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [confirmSave, setConfirmSave] = useState<boolean>(false);
+  const [editingVerifiedField, setEditingVerifiedField] = useState<'nationalId' | 'email' | null>();
+
   const onUpdate = (key: keyof Customer, newValue: any) => {
     if (key === 'address') {
       const address = { ...localData.address, ...newValue };
       setLocalData({ ...localData, address });
+    } else if (key === 'nationalId' && localData.isIdVerified) {
+      // show a confirmation popup
+      setEditingVerifiedField('nationalId');
+      setModalOpen(true);
+    } else if (key === 'email' && localData.isEmailVerified) {
+      // show a confirmation popup
+      setEditingVerifiedField('nationalId');
+      setModalOpen(true);
     } else {
       setLocalData({ ...localData, [key]: newValue });
     }
   };
+  const onAcceptModifyVerifiedField = () => {
+    setModalOpen(false);
+    if (editingVerifiedField === 'email') {
+      onUpdate('isEmailVerified', false);
+    } else if (editingVerifiedField === 'nationalId') {
+      onUpdate('isIdVerified', false);
+    }
+    setEditingVerifiedField(null);
+  };
 
+  const onClickSave = () => {
+    setConfirmSave(true);
+    setModalOpen(true);
+  };
+  const onConfirmSave = () => {
+    setModalOpen(false);
+    navigate('/customers');
+  };
+  const renderModal = () => {
+    let title = '';
+    let body = '';
+    let primaryButtonAction = null;
+    if (editingVerifiedField) {
+      title = text.ErrorUpdatingVerifiedField;
+      body =
+        editingVerifiedField === 'email' ? text.errorEmailVerifiedBody : text.errorIdVerifiedBody;
+      primaryButtonAction = onAcceptModifyVerifiedField;
+    } else if (confirmSave) {
+      title = text.confirmTitle;
+      body = text.confirmBody;
+      primaryButtonAction = onConfirmSave;
+    } else return null;
+    return (
+      <Modal
+        title={title}
+        body={body}
+        open={modalOpen}
+        onDismiss={() => setModalOpen(false)}
+        primaryButtonText="Confirm"
+        primaryButtonAction={primaryButtonAction}
+        secondaryButtonText="cancel"
+        secondaryButtonAction={() => setModalOpen(false)}
+      />
+    );
+  };
   return (
     <Card sx={{ minWidth: 275 }}>
+      {(editingVerifiedField || confirmSave) && renderModal()}
       <CardHeader
         avatar={<AccountCircleIcon fontSize="large" />}
         title={`${customer.firstName} ${customer.lastName}`}
@@ -45,7 +106,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
       <CardContent>
         <Box marginBottom={1}>
           <Typography component="h1" variant="h6">
-            Customer Information
+            {text.CustomerInfo}
           </Typography>
         </Box>
         <Grid container spacing={3}>
@@ -55,7 +116,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               label="customer ID"
               fullWidth
               variant="standard"
-              onChange={(event) => onUpdate('id', event.target.value)}
+              disabled
               value={localData.id}
             />
           </Grid>
@@ -105,7 +166,12 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
             />
             <FormControlLabel
               control={
-                <Checkbox color="primary" name="isIdVerified" value={localData.isIdVerified} />
+                <Checkbox
+                  color="primary"
+                  name="isIdVerified"
+                  checked={localData.isIdVerified}
+                  onChange={(event) => onUpdate('isIdVerified', event.target.checked)}
+                />
               }
               label="ID has been verified"
             />
@@ -125,7 +191,8 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
                 <Checkbox
                   color="primary"
                   name="isEmailVerified"
-                  value={localData.isEmailVerified}
+                  checked={localData.isEmailVerified}
+                  onChange={(event) => onUpdate('isEmailVerified', event.target.checked)}
                 />
               }
               label="Email has been verified"
@@ -180,7 +247,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
       <CardContent>
         <Box marginBottom={1}>
           <Typography component="h1" variant="h6">
-            Address
+            {text.address}
           </Typography>
         </Box>
         <Grid container spacing={3}>
@@ -222,17 +289,25 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="countryCode"
               label="Country"
               fullWidth
-              autoComplete="countryCode"
+              autoComplete="country"
               variant="standard"
               onChange={(event) => onUpdate('countryCode', event.target.value)}
               value={localData.countryCode}
             />
           </Grid>
         </Grid>
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%'
+          }}
+          mt={4}>
+          <Button variant="contained" onClick={onClickSave}>
+            {generalText.save}
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );
 }
-/* WHATS LEFT:
-country code
-*/
