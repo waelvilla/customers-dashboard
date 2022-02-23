@@ -4,7 +4,7 @@ import { useCustomersQuery } from 'src/redux/api/customersApi';
 import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DataTable from 'src/components/DataTable';
-import { UserStatus } from 'src/models/customer.model';
+import { UserStatus } from 'src/types';
 import { HeaderContainer } from './styles';
 
 type DisplayUser = {

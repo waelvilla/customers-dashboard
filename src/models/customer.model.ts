@@ -1,13 +1,5 @@
-export enum Gender {
-  MALE,
-  FEMALE
-}
+import { Gender, UserStatus } from 'src/types';
 
-export enum UserStatus {
-  ACTIVE,
-  PENDING,
-  INACTIVE
-}
 export interface CustomerFromApi {
   id: string;
   customer_id: string;

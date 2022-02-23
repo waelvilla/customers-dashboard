@@ -17,9 +17,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDayjs from '@mui/lab/AdapterDayjs';
 import { $enum } from 'ts-enum-util';
-import { Customer, Gender, UserStatus } from 'src/models/customer.model';
+import { Customer } from 'src/models/customer.model';
+import { Gender, UserStatus } from 'src/types';
 import Modal from 'src/components/Modal';
 import locale from 'src/locale/en.json';
+
 const { CustomerScreen: text, general: generalText } = locale;
 
 const GENDERS = $enum(Gender).getKeys();
