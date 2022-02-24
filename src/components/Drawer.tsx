@@ -1,23 +1,29 @@
-import * as React from 'react';
+import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import {
+  ListItemText,
+  ListItemIcon,
+  ListItem,
+  IconButton,
+  Divider,
+  Typography,
+  List,
+  Toolbar,
+  Box,
+  Drawer,
+  CssBaseline
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { resetAction } from 'src/redux/reducers/auth.reducer';
+import { useAppDispatch } from 'src/redux/hooks';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'open' })<{
@@ -69,8 +75,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end'
 }));
 
-export default function PersistentDrawerLeft({ Component }: { Component: React.FC }) {
+export default function AppDrawer({ Component }: { Component: React.FC }) {
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
@@ -79,6 +87,11 @@ export default function PersistentDrawerLeft({ Component }: { Component: React.F
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const onLogout = () => {
+    localStorage.clear();
+    dispatch(resetAction());
   };
 
   return (
@@ -128,7 +141,13 @@ export default function PersistentDrawerLeft({ Component }: { Component: React.F
         </DrawerHeader>
         <Divider />
         <List>
-          {['Cusomers', 'Reports', 'Funnels'].map((text, index) => (
+          <ListItem button onClick={() => navigate('/customers')}>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Cusomers'} />
+          </ListItem>
+          {['Reports', 'Funnels'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
@@ -137,12 +156,18 @@ export default function PersistentDrawerLeft({ Component }: { Component: React.F
         </List>
         <Divider />
         <List>
-          {['Users', 'Logout'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button onClick={() => navigate('/customers')}>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Users'} />
+          </ListItem>
+          <ListItem button onClick={onLogout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Logout'} />
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open}>
@@ -152,3 +177,4 @@ export default function PersistentDrawerLeft({ Component }: { Component: React.F
     </Box>
   );
 }
+localStorage.clear();

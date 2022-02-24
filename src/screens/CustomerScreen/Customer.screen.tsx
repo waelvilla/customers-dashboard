@@ -22,7 +22,7 @@ const CustomerScreen: React.FC = () => {
   }
   return (
     <Box>
-      <CustomerCard customer={data} />
+      <CustomerCard customer={data} canEdit={user?.role === 'admin'} />
     </Box>
   );
 };

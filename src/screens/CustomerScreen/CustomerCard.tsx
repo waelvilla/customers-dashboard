@@ -27,7 +27,13 @@ const { CustomerScreen: text, general: generalText } = locale;
 const GENDERS = $enum(Gender).getKeys();
 const STATUSES = $enum(UserStatus).getKeys();
 
-export default function CustomerCard({ customer }: { customer: Customer }) {
+export default function CustomerCard({
+  customer,
+  canEdit
+}: {
+  customer: Customer;
+  canEdit?: boolean;
+}) {
   const navigate = useNavigate();
   const [localData, setLocalData] = useState<Customer>(customer);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -127,6 +133,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="phoneNumber"
               label="Phone Number"
               fullWidth
+              disabled={!canEdit}
               autoComplete="tel"
               variant="standard"
               onChange={(event) => onUpdate('phoneNumber', event.target.value)}
@@ -139,6 +146,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="firstName"
               label="First Name"
               fullWidth
+              disabled={!canEdit}
               autoComplete="given-name"
               variant="standard"
               onChange={(event) => onUpdate('firstName', event.target.value)}
@@ -150,6 +158,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="lastName"
               label="Last Name"
               fullWidth
+              disabled={!canEdit}
               autoComplete="family-name"
               variant="standard"
               onChange={(event) => onUpdate('lastName', event.target.value)}
@@ -162,6 +171,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="nationalId"
               label="National ID"
               fullWidth
+              disabled={!canEdit}
               variant="standard"
               onChange={(event) => onUpdate('nationalId', event.target.value)}
               value={localData.nationalId}
@@ -171,6 +181,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
                 <Checkbox
                   color="primary"
                   name="isIdVerified"
+                  disabled={!canEdit}
                   checked={localData.isIdVerified}
                   onChange={(event) => onUpdate('isIdVerified', event.target.checked)}
                 />
@@ -183,6 +194,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="email"
               label="Email"
               fullWidth
+              disabled={!canEdit}
               autoComplete="email"
               variant="standard"
               onChange={(event) => onUpdate('email', event.target.value)}
@@ -193,6 +205,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
                 <Checkbox
                   color="primary"
                   name="isEmailVerified"
+                  disabled={!canEdit}
                   checked={localData.isEmailVerified}
                   onChange={(event) => onUpdate('isEmailVerified', event.target.checked)}
                 />
@@ -205,6 +218,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="gender"
               select
               fullWidth
+              disabled={!canEdit}
               label="Gender"
               variant="standard"
               value={localData.gender}
@@ -221,6 +235,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="status"
               select
               fullWidth
+              disabled={!canEdit}
               label="Status"
               variant="standard"
               value={localData.status}
@@ -237,6 +252,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               <DatePicker
                 label="Date of Birth"
                 value={localData.birthDate}
+                disabled={!canEdit}
                 onChange={(newValue) => {
                   onUpdate('birthDate', newValue);
                 }}
@@ -258,6 +274,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="Street"
               label="Street"
               fullWidth
+              disabled={!canEdit}
               autoComplete="countryCode"
               variant="standard"
               onChange={(event) => onUpdate('address', { street: event.target.value })}
@@ -269,6 +286,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="city"
               label="City"
               fullWidth
+              disabled={!canEdit}
               autoComplete="city"
               variant="standard"
               onChange={(event) => onUpdate('address', { city: event.target.value })}
@@ -280,6 +298,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="postalCode"
               label="Postal Code"
               fullWidth
+              disabled={!canEdit}
               autoComplete="postal-code"
               variant="standard"
               onChange={(event) => onUpdate('address', { postalCode: event.target.value })}
@@ -291,6 +310,7 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
               id="countryCode"
               label="Country"
               fullWidth
+              disabled={!canEdit}
               autoComplete="country"
               variant="standard"
               onChange={(event) => onUpdate('countryCode', event.target.value)}
@@ -305,9 +325,11 @@ export default function CustomerCard({ customer }: { customer: Customer }) {
             width: '100%'
           }}
           mt={4}>
-          <Button variant="contained" onClick={onClickSave}>
-            {generalText.save}
-          </Button>
+          {canEdit && (
+            <Button variant="contained" onClick={onClickSave}>
+              {generalText.save}
+            </Button>
+          )}
         </Box>
       </CardContent>
     </Card>
