@@ -6,6 +6,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DataTable from 'src/components/DataTable';
 import { UserStatus } from 'src/types';
 import { HeaderContainer } from './styles';
+import { useAppSelector } from 'src/redux/hooks';
 
 type DisplayUser = {
   id: string;
@@ -14,10 +15,15 @@ type DisplayUser = {
 };
 const initialActivePage = 1;
 const AllCustomersScreen: React.FC = () => {
+  const { user } = useAppSelector((state) => state.auth);
   const [activePage, setActivePage] = useState<number>(initialActivePage);
   const { data, error, isLoading, isFetching, refetch } = useCustomersQuery(activePage);
   const navigate = useNavigate();
   const [displayData, setDisplayData] = useState<DisplayUser[]>([]);
+
+  useEffect(() => {
+    if (!user?.token) navigate('/login');
+  }, [user]);
 
   useEffect(() => {
     if (data?.customers?.length) {
